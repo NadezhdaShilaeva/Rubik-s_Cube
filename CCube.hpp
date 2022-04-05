@@ -1,14 +1,18 @@
 #include "CSide.hpp"
-//#include <iostream>
 
 class CCube
 {
-    public:
+public:
     CCube();
+    CCube(CSide sides[6]);
     ~CCube();
-    friend std::fstream &operator>>(std::fstream &stream, CCube &cube);
+
+    const CSide &GetSide(int i) const;
+
+    friend std::ifstream &operator>>(std::ifstream &stream, CCube &cube);
     friend std::ostream &operator<<(std::ostream &stream, const CCube &cube);
-    friend std::fstream &operator<<(std::fstrean &stream, const CCube &cube);
-    private:
+    friend std::ofstream &operator<<(std::ofstream &stream, const CCube &cube);
+
+private:
     CSide sides_[6];
 };
