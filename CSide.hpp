@@ -6,21 +6,30 @@ class CSide
 public:
     CSide()
     {
-        small_cube_[3][3] = {0};
+        for (int i = 0; i < 3; ++i)
+        {
+            for (int j = 0; j < 3; ++j)
+            {
+                small_cube_[i][j] = 0;
+            }
+        }
     }
+
     CSide(int small_cube[3][3])
     {
         memcpy(small_cube_, small_cube, sizeof(small_cube_));
     }
+
     ~CSide() {}
 
-    int GetNumColor(int x, int y) const
+    int GetNumColor(int y, int x) const
     {
-        return small_cube_[x][y];
+        return small_cube_[y][x];
     }
-    char GetColor(int x, int y) const
+
+    char GetColor(int y, int x) const
     {
-        switch (small_cube_[x][y])
+        switch (small_cube_[y][x])
         {
         case 0:
             return 'y';
@@ -80,6 +89,9 @@ std::ifstream &operator>>(std::ifstream &stream, CSide &side)
             case 'w':
                 small_cube[i][j] = 5;
                 break;
+            
+            default:
+                std::cerr << "The description of cube is not correct!\n";
             }
         }
     }
@@ -106,8 +118,7 @@ std::ofstream &operator<<(std::ofstream &stream, const CSide &side)
     {
         for (int j = 0; j < 3; ++j)
         {
-            std::cout << side.GetColor(i, j) << " ";
-            stream << " ";
+            stream << side.GetColor(i, j) << " ";
         }
         stream << std::endl;
     }

@@ -6,13 +6,15 @@
 int main()
 {
     std::ifstream fin("cube.txt");
-    std::ofstream fout("result.txt");
     CCube cube;
-    if (!fout)
-    std::cout << "lknkl";
-    //fout << 'j';
     fin >> cube;
-    //fout << cube;
-    //std::cout << cube;
+    fin.close();
+
+    std::ofstream fout("result.txt");
+    fout << cube;
+    fout.close();
+
+    std::cout << cube;
+    
     return 0;
 }

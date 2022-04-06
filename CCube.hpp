@@ -8,6 +8,7 @@ public:
     ~CCube();
 
     const CSide &GetSide(int i) const;
+    bool IsCorrectCube() const;
 
     friend std::ifstream &operator>>(std::ifstream &stream, CCube &cube);
     friend std::ostream &operator<<(std::ostream &stream, const CCube &cube);
