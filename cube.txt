@@ -2,21 +2,21 @@ y y y
 y y y
 y y y
 
-o o o
-o o o
-o o o
-
 b b b
 b b b
 b b b
 
-r r r
-r r r
-r r r
+o o o
+o o o
+o o o
 
 g g g
 g g g
 g g g
+
+r r r
+r r r
+r r r
 
 w w w
 w w w

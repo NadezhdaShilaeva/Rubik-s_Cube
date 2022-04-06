@@ -1,4 +1,4 @@
-#include "CSide.hpp"
+#include "CSide.cpp"
 
 class CCube
 {
@@ -11,8 +11,9 @@ public:
     friend std::ostream &operator<<(std::ostream &stream, const CCube &cube);
     friend std::ofstream &operator<<(std::ofstream &stream, const CCube &cube);
 
-    const CSide &GetSide(int i) const;
     bool IsCorrectCube() const;
+    bool IsSolvedCube() const;
+    void GenerationCube();
 
     void F();
     void B();
@@ -26,6 +27,11 @@ public:
     void L_();
     void U_();
     void D_();
+
+private:
+    const CSide &GetSide(int i) const;
+    void ClockwiseRotationSide(int face, int up, int down, int left, int right);
+    void CounterclockwiseRotationSide(int face, int up, int down, int left, int right);
 
 private:
     CSide sides_[6];

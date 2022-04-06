@@ -1,7 +1,14 @@
 #include "CCube.hpp"
 #include <set>
+#include <random>
 
-CCube::CCube() {}
+CCube::CCube()
+{
+    for (int i = 0; i < 6; ++i)
+    {
+        sides_[i] = CSide(i);
+    }
+}
 
 CCube::CCube(CSide sides[6])
 {
@@ -241,31 +248,186 @@ bool CCube::IsCorrectCube() const
     return true;
 }
 
+bool CCube::IsSolvedCube() const
+{
+    for (int i = 0; i < 6; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            for (int k = 0; k < 3; ++k)
+            {
+                if (sides_[i].GetNumColor(j, k) != i)
+                {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+void CCube::ClockwiseRotationSide(int face, int up, int down, int left, int right)
+{
+    int tmp_small_cube = sides_[face].GetNumColor(0, 1);
+    sides_[face].SetColor(0, 1, sides_[face].GetNumColor(1, 0));
+    sides_[face].SetColor(1, 0, sides_[face].GetNumColor(2, 1));
+    sides_[face].SetColor(2, 1, sides_[face].GetNumColor(1, 2));
+    sides_[face].SetColor(1, 2, tmp_small_cube);
+
+    tmp_small_cube = sides_[face].GetNumColor(0, 0);
+    sides_[face].SetColor(0, 0, sides_[face].GetNumColor(2, 0));
+    sides_[face].SetColor(2, 0, sides_[face].GetNumColor(2, 2));
+    sides_[face].SetColor(2, 2, sides_[face].GetNumColor(0, 2));
+    sides_[face].SetColor(0, 2, tmp_small_cube);
+
+    int tmp_edge[3] = {sides_[up].GetNumColor(2, 0), sides_[up].GetNumColor(2, 1), sides_[up].GetNumColor(2, 2)};
+    sides_[up].SetColor(2, 0, sides_[left].GetNumColor(2, 2));
+    sides_[up].SetColor(2, 1, sides_[left].GetNumColor(1, 2));
+    sides_[up].SetColor(2, 2, sides_[left].GetNumColor(0, 2));
+    sides_[left].SetColor(2, 2, sides_[down].GetNumColor(0, 2));
+    sides_[left].SetColor(1, 2, sides_[down].GetNumColor(0, 1));
+    sides_[left].SetColor(0, 2, sides_[down].GetNumColor(0, 0));
+    sides_[down].SetColor(0, 2, sides_[right].GetNumColor(0, 0));
+    sides_[down].SetColor(0, 1, sides_[right].GetNumColor(1, 0));
+    sides_[down].SetColor(0, 0, sides_[right].GetNumColor(2, 0));
+    sides_[right].SetColor(0, 0, tmp_edge[0]);
+    sides_[right].SetColor(1, 0, tmp_edge[1]);
+    sides_[right].SetColor(2, 0, tmp_edge[2]);
+}
+
+void CCube::CounterclockwiseRotationSide(int face, int up, int down, int left, int right)
+{
+    int tmp_small_cube = sides_[face].GetNumColor(0, 1);
+    sides_[face].SetColor(0, 1, sides_[face].GetNumColor(1, 2));
+    sides_[face].SetColor(1, 2, sides_[face].GetNumColor(2, 1));
+    sides_[face].SetColor(2, 1, sides_[face].GetNumColor(1, 0));
+    sides_[face].SetColor(1, 0, tmp_small_cube);
+
+    tmp_small_cube = sides_[face].GetNumColor(0, 0);
+    sides_[face].SetColor(0, 0, sides_[face].GetNumColor(0, 2));
+    sides_[face].SetColor(0, 2, sides_[face].GetNumColor(2, 2));
+    sides_[face].SetColor(2, 2, sides_[face].GetNumColor(2, 0));
+    sides_[face].SetColor(2, 0, tmp_small_cube);
+
+    int tmp_edge[3] = {sides_[up].GetNumColor(2, 0), sides_[up].GetNumColor(2, 1), sides_[up].GetNumColor(2, 2)};
+    sides_[up].SetColor(2, 0, sides_[right].GetNumColor(0, 0));
+    sides_[up].SetColor(2, 1, sides_[right].GetNumColor(1, 0));
+    sides_[up].SetColor(2, 2, sides_[right].GetNumColor(2, 0));
+    sides_[right].SetColor(0, 0, sides_[down].GetNumColor(0, 2));
+    sides_[right].SetColor(1, 0, sides_[down].GetNumColor(0, 1));
+    sides_[right].SetColor(2, 0, sides_[down].GetNumColor(0, 0));
+    sides_[down].SetColor(0, 2, sides_[left].GetNumColor(2, 2));
+    sides_[down].SetColor(0, 1, sides_[left].GetNumColor(1, 2));
+    sides_[down].SetColor(0, 0, sides_[left].GetNumColor(0, 2));
+    sides_[left].SetColor(2, 2, tmp_edge[0]);
+    sides_[left].SetColor(1, 2, tmp_edge[1]);
+    sides_[left].SetColor(0, 2, tmp_edge[2]);
+}
+
 void CCube::F()
 {
-    int tmp_small_cube = sides_[1].GetNumColor(0, 1);
-    sides_[1].SetColor(0, 1, sides_[1].GetNumColor(1, 0));
-    sides_[1].SetColor(1, 0, sides_[1].GetNumColor(2, 1));
-    sides_[1].SetColor(2, 1, sides_[1].GetNumColor(1, 2));
-    sides_[1].SetColor(1, 2, tmp_small_cube);
+    ClockwiseRotationSide(1, 0, 5, 2, 4);
+}
 
-    tmp_small_cube = sides_[1].GetNumColor(0, 0);
-    sides_[1].SetColor(0, 0, sides_[1].GetNumColor(2, 0));
-    sides_[1].SetColor(2, 0, sides_[1].GetNumColor(2, 2));
-    sides_[1].SetColor(2, 2, sides_[1].GetNumColor(0, 2));
-    sides_[1].SetColor(0, 2, tmp_small_cube);
+void CCube::B()
+{
+    ClockwiseRotationSide(3, 0, 5, 4, 2);
+}
 
-    int tmp_edge[3] = {sides_[0].GetNumColor(2, 0), sides_[0].GetNumColor(2, 1), sides_[0].GetNumColor(2, 2)};
-    sides_[0].SetColor(2, 0, sides_[2].GetNumColor(2, 2));
-    sides_[0].SetColor(2, 1, sides_[2].GetNumColor(1, 2));
-    sides_[0].SetColor(2, 2, sides_[2].GetNumColor(0, 2));
-    sides_[2].SetColor(2, 2, sides_[5].GetNumColor(0, 2));
-    sides_[2].SetColor(1, 2, sides_[5].GetNumColor(0, 1));
-    sides_[2].SetColor(0, 2, sides_[5].GetNumColor(0, 0));
-    sides_[5].SetColor(0, 2, sides_[4].GetNumColor(0, 0));
-    sides_[5].SetColor(0, 1, sides_[4].GetNumColor(1, 0));
-    sides_[5].SetColor(0, 0, sides_[4].GetNumColor(2, 0));
-    sides_[4].SetColor(0, 0, tmp_edge[0]);
-    sides_[4].SetColor(1, 0, tmp_edge[1]);
-    sides_[4].SetColor(2, 0, tmp_edge[2]);
+void CCube::R()
+{
+    ClockwiseRotationSide(4, 0, 5, 1, 3);
+}
+
+void CCube::L()
+{
+    ClockwiseRotationSide(2, 0, 5, 3, 1);
+}
+
+void CCube::U()
+{
+    ClockwiseRotationSide(0, 3, 1, 2, 4);
+}
+
+void CCube::D()
+{
+    ClockwiseRotationSide(5, 1, 3, 2, 4);
+}
+
+void CCube::F_()
+{
+    CounterclockwiseRotationSide(1, 0, 5, 2, 4);
+}
+
+void CCube::B_()
+{
+    CounterclockwiseRotationSide(3, 0, 5, 4, 2);
+}
+
+void CCube::R_()
+{
+    CounterclockwiseRotationSide(4, 0, 5, 1, 3);
+}
+
+void CCube::L_()
+{
+    CounterclockwiseRotationSide(2, 0, 5, 3, 1);
+}
+
+void CCube::U_()
+{
+    CounterclockwiseRotationSide(0, 3, 1, 2, 4);
+}
+
+void CCube::D_()
+{
+    CounterclockwiseRotationSide(5, 1, 3, 2, 4);
+}
+
+void CCube::GenerationCube()
+{
+    srand(time(NULL));
+    for (int i = 0; i < 20; ++i)
+    {
+        int rotation = rand() % 12;
+        switch (rotation)
+        {
+        case 0:
+            F();
+            break;
+        case 1:
+            B();
+            break;
+        case 2:
+            R();
+            break;
+        case 3:
+            L();
+            break;
+        case 4:
+            U();
+            break;
+        case 5:
+            D();
+            break;
+        case 6:
+            F_();
+            break;
+        case 7:
+            B_();
+            break;
+        case 8:
+            R_();
+            break;
+        case 9:
+            L_();
+            break;
+        case 10:
+            U_();
+            break;
+        case 11:
+            D_();
+            break;
+        }
+    }
 }
