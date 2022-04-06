@@ -22,6 +22,10 @@ public:
 
     ~CSide() {}
 
+    friend std::ifstream &operator>>(std::ifstream &stream, CSide &side);
+    friend std::ostream &operator<<(std::ostream &stream, const CSide &side);
+    friend std::ofstream &operator<<(std::ofstream &stream, const CSide &side);
+
     int GetNumColor(int y, int x) const
     {
         return small_cube_[y][x];
@@ -52,9 +56,10 @@ public:
         }
     }
 
-    friend std::ifstream &operator>>(std::ifstream &stream, CSide &side);
-    friend std::ostream &operator<<(std::ostream &stream, const CSide &side);
-    friend std::ofstream &operator<<(std::ofstream &stream, const CSide &side);
+    void SetColor(int y, int x, int color)
+    {
+        small_cube_[y][x] = color;
+    }
 
 private:
     int small_cube_[3][3];
