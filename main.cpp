@@ -39,6 +39,7 @@ void GameCube()
             std::cin >> file_name;
             std::ofstream fout(file_name);
             fout << cube;
+            fout.close();
         }
         else if(command == "show")
         {
