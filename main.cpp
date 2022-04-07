@@ -8,12 +8,14 @@ void GameCube()
 {
     CCube cube;
     cube.GenerationCube();
+    std::cout << cube.IsCorrectCube() << cube.IsSolvedCube();
 
     std::cout << "Game started\n"
               << "Enter \"stop\" to stop the game.\n"
-              << "Enter \"show\" to show current state of the cube."
-              << "Enter \"F\" / \"B\" / \"R\" / \"L\" / \"U\" / \"D\" to rotate clockwise the corresponding side"
-              << "Enter \"F'\" / \"B'\" / \"R'\" / \"L'\" / \"U'\" / \"D'\" to rotate counterclockwise the corresponding side";
+              << "Enter \"show\" to show current state of the cube.\n"
+              << "Enter \"file\" to save current state of cube in file.\n"
+              << "Enter \"F\" / \"B\" / \"R\" / \"L\" / \"U\" / \"D\" to rotate clockwise the corresponding side.\n"
+              << "Enter \"F'\" / \"B'\" / \"R'\" / \"L'\" / \"U'\" / \"D'\" to rotate counterclockwise the corresponding side.\n";
 
     while (true)
     {
@@ -29,6 +31,14 @@ void GameCube()
         {
             std::cout << "Thank you for playing the game!\n";
             break;
+        }
+        else if (command == "file")
+        {
+            std::string file_name;
+            std::cout << "Enter the file name:\n";
+            std::cin >> file_name;
+            std::ofstream fout(file_name);
+            fout << cube;
         }
         else if(command == "show")
         {
@@ -91,16 +101,7 @@ void GameCube()
 
 int main()
 {
-    std::ifstream fin("cube.txt");
-    CCube cube;
-    fin >> cube;
-    fin.close();
-
-    std::ofstream fout("result.txt");
-    fout << cube;
-    fout.close();
-
-    std::cout << cube;
+    GameCube();
 
     return 0;
 }
