@@ -7,8 +7,8 @@ int main()
     //GameCube();
     CCube cube;
     std::string solution;
-    std::ifstream fin("cube1.txt");
-    fin >> cube;
-    cube.SolveCube(solution);
+    std::ifstream fin("cube.txt");
+    cube.GenerationCube();
+    //cube.SolveCube(solution);
     return 0;
 }

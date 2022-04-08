@@ -408,39 +408,51 @@ void CCube::GenerationCube()
         {
         case 0:
             F();
+            std::cout << "F\n" << *this;
             break;
         case 1:
             B();
+            std::cout << "B\n" << *this;
             break;
         case 2:
             R();
+            std::cout << "R\n" << *this;
             break;
         case 3:
             L();
+            std::cout << "L\n" << *this;
             break;
         case 4:
             U();
+            std::cout << "U\n" << *this;
             break;
         case 5:
             D();
+            std::cout << "D\n" << *this;
             break;
         case 6:
             F_();
+            std::cout << "F_\n" << *this;
             break;
         case 7:
             B_();
+            std::cout << "B_\n" << *this;
             break;
         case 8:
             R_();
+            std::cout << "R_\n" << *this;
             break;
         case 9:
             L_();
+            std::cout << "L_\n" << *this;
             break;
         case 10:
             U_();
+            std::cout << "U_\n" << *this;
             break;
         case 11:
             D_();
+            std::cout << "D_\n" << *this;
             break;
         }
     }
@@ -864,7 +876,7 @@ void CCube::DownWhiteCorners(std::string &solution)
         }
 
         BangBangAlgorithm(solution, side_front);
-        std::cout << solution;
+        std::cout << solution << '\n';
         while (sides_[side_front].GetNumColor(2, 2) != sides_[side_front].GetNumColor(1, 1) ||
                sides_[side_right].GetNumColor(2, 0) != sides_[side_right].GetNumColor(1, 1))
         {
