@@ -280,17 +280,13 @@ void CCube::ClockwiseRotationSide(int face, int up, int down, int left, int righ
     sides_[face].SetColor(2, 2, sides_[face].GetNumColor(0, 2));
     sides_[face].SetColor(0, 2, tmp_small_cube);
 
-    int edge_up[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{2, 0}, {2, 1}, {2, 2}}, {{0, 0}, {1, 0}, {2, 0}}, 
-                            {{0, 2}, {0, 1}, {0, 0}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 0}, {2, 1}, {2, 2}}};
-    int edge_left[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 2}, {1, 2}, {0, 2}}, 
-                              {{2, 2}, {1, 2}, {0, 2}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 0}, {2, 1}, {2, 2}}};
-    int edge_down[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{0, 2}, {0, 1}, {0, 0}}, {{0, 0}, {1, 0}, {2, 0}}, 
-                              {{2, 0}, {2, 1}, {2, 2}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 0}, {2, 1}, {2, 2}}};
-    int edge_right[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{0, 0}, {1, 0}, {2, 0}}, 
-                              {{0, 0}, {1, 0}, {2, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{2, 0}, {2, 1}, {2, 2}}};
+    int edge_up[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{2, 0}, {2, 1}, {2, 2}}, {{0, 0}, {1, 0}, {2, 0}}, {{0, 2}, {0, 1}, {0, 0}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 0}, {2, 1}, {2, 2}}};
+    int edge_left[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 0}, {2, 1}, {2, 2}}};
+    int edge_down[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{0, 2}, {0, 1}, {0, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{2, 0}, {2, 1}, {2, 2}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 0}, {2, 1}, {2, 2}}};
+    int edge_right[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{2, 0}, {2, 1}, {2, 2}}};
 
-    int tmp_edge[3] = {sides_[up].GetNumColor(edge_up[face][0][0], edge_up[face][0][1]), 
-                       sides_[up].GetNumColor(edge_up[face][1][0], edge_up[face][1][1]), 
+    int tmp_edge[3] = {sides_[up].GetNumColor(edge_up[face][0][0], edge_up[face][0][1]),
+                       sides_[up].GetNumColor(edge_up[face][1][0], edge_up[face][1][1]),
                        sides_[up].GetNumColor(edge_up[face][2][0], edge_up[face][2][1])};
     sides_[up].SetColor(edge_up[face][0][0], edge_up[face][0][1], sides_[left].GetNumColor(edge_left[face][0][0], edge_left[face][0][1]));
     sides_[up].SetColor(edge_up[face][1][0], edge_up[face][1][1], sides_[left].GetNumColor(edge_left[face][1][0], edge_left[face][1][1]));
@@ -320,17 +316,13 @@ void CCube::CounterclockwiseRotationSide(int face, int up, int down, int left, i
     sides_[face].SetColor(2, 2, sides_[face].GetNumColor(2, 0));
     sides_[face].SetColor(2, 0, tmp_small_cube);
 
-    int edge_up[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{2, 0}, {2, 1}, {2, 2}}, {{0, 0}, {1, 0}, {2, 0}}, 
-                            {{0, 2}, {0, 1}, {0, 0}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 0}, {2, 1}, {2, 2}}};
-    int edge_left[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 2}, {1, 2}, {0, 2}}, 
-                              {{2, 2}, {1, 2}, {0, 2}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 0}, {2, 1}, {2, 2}}};
-    int edge_down[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{0, 2}, {0, 1}, {0, 0}}, {{0, 0}, {1, 0}, {2, 0}}, 
-                              {{2, 0}, {2, 1}, {2, 2}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 0}, {2, 1}, {2, 2}}};
-    int edge_right[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{0, 0}, {1, 0}, {2, 0}}, 
-                              {{0, 0}, {1, 0}, {2, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{2, 0}, {2, 1}, {2, 2}}};
+    int edge_up[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{2, 0}, {2, 1}, {2, 2}}, {{0, 0}, {1, 0}, {2, 0}}, {{0, 2}, {0, 1}, {0, 0}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 0}, {2, 1}, {2, 2}}};
+    int edge_left[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 0}, {2, 1}, {2, 2}}};
+    int edge_down[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{0, 2}, {0, 1}, {0, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{2, 0}, {2, 1}, {2, 2}}, {{2, 2}, {1, 2}, {0, 2}}, {{2, 0}, {2, 1}, {2, 2}}};
+    int edge_right[6][3][2] = {{{0, 2}, {0, 1}, {0, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{0, 0}, {1, 0}, {2, 0}}, {{2, 0}, {2, 1}, {2, 2}}};
 
-    int tmp_edge[3] = {sides_[up].GetNumColor(edge_up[face][0][0], edge_up[face][0][1]), 
-                       sides_[up].GetNumColor(edge_up[face][1][0], edge_up[face][1][1]), 
+    int tmp_edge[3] = {sides_[up].GetNumColor(edge_up[face][0][0], edge_up[face][0][1]),
+                       sides_[up].GetNumColor(edge_up[face][1][0], edge_up[face][1][1]),
                        sides_[up].GetNumColor(edge_up[face][2][0], edge_up[face][2][1])};
     sides_[up].SetColor(edge_up[face][0][0], edge_up[face][0][1], sides_[right].GetNumColor(edge_right[face][0][0], edge_right[face][0][1]));
     sides_[up].SetColor(edge_up[face][1][0], edge_up[face][1][1], sides_[right].GetNumColor(edge_right[face][1][0], edge_right[face][1][1]));
@@ -451,5 +443,384 @@ void CCube::GenerationCube()
             D_();
             break;
         }
+    }
+}
+
+void CCube::BangBangAlgorithm(std::string &solution, int front)
+{
+    switch (front)
+    {
+    case 1:
+        R();
+        U();
+        R_();
+        U_();
+        solution += "R U R' U' ";
+        break;
+    case 2:
+        F();
+        U();
+        F_();
+        U_();
+        solution += "F U F' U' ";
+        break;
+    case 3:
+        L();
+        U();
+        L_();
+        U_();
+        solution += "L U L' U' ";
+        break;
+    case 4:
+        B();
+        U();
+        B_();
+        U_();
+        solution += "B U B' U' ";
+        break;
+    }
+}
+
+void CCube::SolveWhiteFlower(std::string &solution)
+{
+    while (sides_[0].GetNumColor(0, 1) != 5 || sides_[0].GetNumColor(1, 0) != 5 ||
+           sides_[0].GetNumColor(1, 2) != 5 || sides_[0].GetNumColor(2, 1) != 5)
+    {
+        for (int i = 1; i < 5; ++i)
+        {
+            if (sides_[i].GetNumColor(1, 0) == 5)
+            {
+                switch (i)
+                {
+                case 1:
+                    while (sides_[0].GetNumColor(1, 0) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    L_();
+                    solution += "L' ";
+                    break;
+                case 2:
+                    while (sides_[0].GetNumColor(0, 1) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    B_();
+                    solution += "B' ";
+                    break;
+                case 3:
+                    while (sides_[0].GetNumColor(1, 2) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    R_();
+                    solution += "R' ";
+                    break;
+                case 4:
+                    while (sides_[0].GetNumColor(2, 1) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    F_();
+                    solution += "F' ";
+                    break;
+                }
+            }
+            if (sides_[i].GetNumColor(1, 2) == 5)
+            {
+                switch (i)
+                {
+                case 1:
+                    while (sides_[0].GetNumColor(1, 2) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    R();
+                    solution += "R ";
+                    break;
+                case 2:
+                    while (sides_[0].GetNumColor(2, 1) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    F();
+                    solution += "F ";
+                    break;
+                case 3:
+                    while (sides_[0].GetNumColor(1, 0) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    L();
+                    solution += "L ";
+                    break;
+                case 4:
+                    while (sides_[0].GetNumColor(0, 1) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    B();
+                    solution += "B ";
+                    break;
+                }
+            }
+            if (sides_[i].GetNumColor(0, 1) == 5)
+            {
+                switch (i)
+                {
+                case 1:
+                    F();
+                    solution += "F ";
+                    while (sides_[0].GetNumColor(1, 2) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    R();
+                    solution += "R ";
+                    break;
+                case 2:
+                    L();
+                    solution += "L ";
+                    while (sides_[0].GetNumColor(2, 1) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    F();
+                    solution += "F ";
+                    break;
+                case 3:
+                    B();
+                    solution += "B ";
+                    while (sides_[0].GetNumColor(1, 0) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    L();
+                    solution += "L ";
+                    break;
+                case 4:
+                    R();
+                    solution += "R ";
+                    while (sides_[0].GetNumColor(0, 1) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    B();
+                    solution += "B ";
+                    break;
+                }
+            }
+            if (sides_[i].GetNumColor(2, 1) == 5)
+            {
+                switch (i)
+                {
+                case 1:
+                    while (sides_[0].GetNumColor(2, 1) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    F_();
+                    solution += "F' ";
+                    while (sides_[0].GetNumColor(1, 2) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    R();
+                    solution += "R ";
+                    break;
+                case 2:
+                    while (sides_[0].GetNumColor(1, 0) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    L_();
+                    solution += "L' ";
+                    while (sides_[0].GetNumColor(2, 1) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    F();
+                    solution += "F ";
+                    break;
+                case 3:
+                    while (sides_[0].GetNumColor(0, 1) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    B_();
+                    solution += "B' ";
+                    while (sides_[0].GetNumColor(1, 0) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    L();
+                    solution += "L ";
+                    break;
+                case 4:
+                    while (sides_[0].GetNumColor(1, 2) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    R_();
+                    solution += "R' ";
+                    while (sides_[0].GetNumColor(0, 1) == 5)
+                    {
+                        U();
+                        solution += "U ";
+                    }
+                    B();
+                    solution += "B ";
+                    break;
+                }
+            }
+        }
+        if (sides_[5].GetNumColor(0, 1) == 5)
+        {
+            while (sides_[0].GetNumColor(2, 1) == 5)
+            {
+                U();
+                solution += "U ";
+            }
+            F();
+            F();
+            solution += "F F ";
+        }
+        if (sides_[5].GetNumColor(1, 2) == 5)
+        {
+            while (sides_[0].GetNumColor(1, 2) == 5)
+            {
+                U();
+                solution += "U ";
+            }
+            R();
+            R();
+            solution += "R R ";
+        }
+        if (sides_[5].GetNumColor(2, 1) == 5)
+        {
+            while (sides_[0].GetNumColor(0, 1) == 5)
+            {
+                U();
+                solution += "U ";
+            }
+            B();
+            B();
+            solution += "B B ";
+        }
+        if (sides_[5].GetNumColor(1, 0) == 5)
+        {
+            while (sides_[0].GetNumColor(1, 0) == 5)
+            {
+                U();
+                solution += "U ";
+            }
+            L();
+            L();
+            solution += "L L ";
+        }
+    }
+}
+
+void CCube::SolveWhiteCross(std::string &solution)
+{
+    for (int i = 1; i < 5; ++i)
+    {
+        while (sides_[i].GetNumColor(0, 1) != i)
+        {
+            U();
+            solution += "U ";
+        }
+        switch (i)
+        {
+        case 1:
+            F();
+            F();
+            solution += "F F ";
+            break;
+        case 2:
+            L();
+            L();
+            solution += "L L ";
+            break;
+        case 3:
+            B();
+            B();
+            solution += "B B ";
+            break;
+        case 4:
+            R();
+            R();
+            solution += "R R ";
+            break;
+        }
+    }
+}
+
+void CCube::SolveWhiteCorners(std::string &solution)
+{
+    while (sides_[0].GetNumColor(0, 0) == 5 || sides_[0].GetNumColor(0, 2) == 5 ||
+           sides_[0].GetNumColor(2, 0) == 5 || sides_[0].GetNumColor(2, 2) == 5 ||
+           sides_[1].GetNumColor(0, 0) == 5 || sides_[1].GetNumColor(0, 2) == 5 ||
+           sides_[2].GetNumColor(0, 0) == 5 || sides_[2].GetNumColor(0, 2) == 5 ||
+           sides_[3].GetNumColor(0, 0) == 5 || sides_[3].GetNumColor(0, 2) == 5 ||
+           sides_[4].GetNumColor(0, 0) == 5 || sides_[4].GetNumColor(0, 2) == 5)
+    {
+        std::set<int> corner;
+        int side_front;
+        if (sides_[0].GetNumColor(2, 2) == 5 || sides_[4].GetNumColor(0, 0) == 5 || sides_[1].GetNumColor(0, 2) == 5)
+        {
+            corner.emplace(sides_[0].GetNumColor(2, 2));
+            corner.emplace(sides_[4].GetNumColor(0, 0));
+            corner.emplace(sides_[1].GetNumColor(0, 2));
+            side_front = 1;
+        }
+        else if (sides_[0].GetNumColor(2, 0) == 5 || sides_[1].GetNumColor(0, 0) == 5 || sides_[2].GetNumColor(0, 2) == 5)
+        {
+            corner.emplace(sides_[0].GetNumColor(2, 0));
+            corner.emplace(sides_[1].GetNumColor(0, 0));
+            corner.emplace(sides_[2].GetNumColor(0, 2));
+            side_front = 2;
+        }
+        else if (sides_[0].GetNumColor(0, 0) == 5 || sides_[2].GetNumColor(0, 0) == 5 || sides_[3].GetNumColor(0, 2) == 5)
+        {
+            corner.emplace(sides_[0].GetNumColor(0, 0));
+            corner.emplace(sides_[2].GetNumColor(0, 0));
+            corner.emplace(sides_[3].GetNumColor(0, 2));
+            side_front = 3;
+        }
+        else if (sides_[0].GetNumColor(0, 2) == 5 || sides_[3].GetNumColor(0, 0) == 5 || sides_[4].GetNumColor(0, 2) == 5)
+        {
+            corner.emplace(sides_[0].GetNumColor(0, 2));
+            corner.emplace(sides_[3].GetNumColor(0, 0));
+            corner.emplace(sides_[4].GetNumColor(0, 2));
+            side_front = 4;
+        }
+        while (corner.find(sides_[side_front].GetNumColor(1, 1)) == corner.end() || 
+               corner.find(sides_[side_front - 1].GetNumColor(1, 1)) == corner.end())
+        {
+            side_front = side_front % 4 + 1;
+            U();
+            solution += "U ";
+        }
+        while()
     }
 }

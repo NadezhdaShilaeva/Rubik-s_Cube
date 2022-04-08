@@ -28,6 +28,11 @@ public:
     void U_();
     void D_();
 
+    void BangBangAlgorithm(std::string &solution, int front);
+    void SolveWhiteFlower(std::string &solution);
+    void SolveWhiteCross(std::string &solution);
+    void SolveWhiteCorners(std::string &solution);
+
 private:
     const CSide &GetSide(int i) const;
     void ClockwiseRotationSide(int face, int up, int down, int left, int right);
