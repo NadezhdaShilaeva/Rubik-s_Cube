@@ -29,9 +29,19 @@ public:
     void D_();
 
     void BangBangAlgorithm(std::string &solution, int front);
+    void BangBangLeftAlgorithm(std::string &solution, int front);
     void SolveWhiteFlower(std::string &solution);
     void SolveWhiteCross(std::string &solution);
+    void DownWhiteCorners(std::string &solution);
     void SolveWhiteCorners(std::string &solution);
+    void DownMiddleEdges(std::string &solution);
+    void SolveMiddleLayer(std::string &solution);
+    void SolveYellowCross(std::string &solution);
+    void SolveCorrectYellowCross(std::string &solution);
+    void SolveYellowCorners(std::string &solution);
+    void SolveCorrectYellowCorners(std::string &solution);
+
+    void SolveCube(std::string &solution);
 
 private:
     const CSide &GetSide(int i) const;

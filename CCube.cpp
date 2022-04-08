@@ -481,6 +481,41 @@ void CCube::BangBangAlgorithm(std::string &solution, int front)
     }
 }
 
+void CCube::BangBangLeftAlgorithm(std::string &solution, int front)
+{
+    switch (front)
+    {
+    case 1:
+        L_();
+        U_();
+        L();
+        U();
+        solution += "L' U' L U ";
+        break;
+    case 2:
+        B_();
+        U_();
+        B();
+        U();
+        solution += "B' U' B U ";
+        break;
+    case 3:
+        R_();
+        U_();
+        R();
+        U();
+        solution += "R' U' R U ";
+        break;
+    case 4:
+        F_();
+        U_();
+        F();
+        U();
+        solution += "F' U' F U ";
+        break;
+    }
+}
+
 void CCube::SolveWhiteFlower(std::string &solution)
 {
     while (sides_[0].GetNumColor(0, 1) != 5 || sides_[0].GetNumColor(1, 0) != 5 ||
@@ -530,6 +565,7 @@ void CCube::SolveWhiteFlower(std::string &solution)
                     break;
                 }
             }
+
             if (sides_[i].GetNumColor(1, 2) == 5)
             {
                 switch (i)
@@ -572,6 +608,7 @@ void CCube::SolveWhiteFlower(std::string &solution)
                     break;
                 }
             }
+
             if (sides_[i].GetNumColor(0, 1) == 5)
             {
                 switch (i)
@@ -622,6 +659,7 @@ void CCube::SolveWhiteFlower(std::string &solution)
                     break;
                 }
             }
+
             if (sides_[i].GetNumColor(2, 1) == 5)
             {
                 switch (i)
@@ -693,6 +731,7 @@ void CCube::SolveWhiteFlower(std::string &solution)
                 }
             }
         }
+
         if (sides_[5].GetNumColor(0, 1) == 5)
         {
             while (sides_[0].GetNumColor(2, 1) == 5)
@@ -775,7 +814,7 @@ void CCube::SolveWhiteCross(std::string &solution)
     }
 }
 
-void CCube::SolveWhiteCorners(std::string &solution)
+void CCube::DownWhiteCorners(std::string &solution)
 {
     while (sides_[0].GetNumColor(0, 0) == 5 || sides_[0].GetNumColor(0, 2) == 5 ||
            sides_[0].GetNumColor(2, 0) == 5 || sides_[0].GetNumColor(2, 2) == 5 ||
@@ -814,13 +853,411 @@ void CCube::SolveWhiteCorners(std::string &solution)
             corner.emplace(sides_[4].GetNumColor(0, 2));
             side_front = 4;
         }
-        while (corner.find(sides_[side_front].GetNumColor(1, 1)) == corner.end() || 
-               corner.find(sides_[side_front - 1].GetNumColor(1, 1)) == corner.end())
+
+        int side_right = side_front == 1 ? 4 : side_front - 1;
+        while (corner.find(sides_[side_front].GetNumColor(1, 1)) == corner.end() ||
+               corner.find(sides_[side_right].GetNumColor(1, 1)) == corner.end())
         {
             side_front = side_front % 4 + 1;
             U();
             solution += "U ";
         }
-        while()
+
+        BangBangAlgorithm(solution, side_front);
+        std::cout << solution;
+        while (sides_[side_front].GetNumColor(2, 2) != sides_[side_front].GetNumColor(1, 1) ||
+               sides_[side_right].GetNumColor(2, 0) != sides_[side_right].GetNumColor(1, 1))
+        {
+    std::cout << 16 << '\n';
+            BangBangAlgorithm(solution, side_front);
+            BangBangAlgorithm(solution, side_front);
+        }
     }
+}
+
+void CCube::SolveWhiteCorners(std::string &solution)
+{
+    DownWhiteCorners(solution);
+
+    int white_cor[4][2] = {{0, 2}, {0, 0}, {2, 0}, {2, 2}};
+    for (int side_front = 1; side_front < 5; ++side_front)
+    {
+    std::cout << 12 << '\n';
+        int side_right = side_front == 1 ? 4 : side_front - 1;
+        if (sides_[side_front].GetNumColor(2, 2) != sides_[side_front].GetNumColor(1, 1) ||
+            sides_[side_right].GetNumColor(2, 0) != sides_[side_right].GetNumColor(1, 1))
+        {
+            std::set<int> corner, correct_corner = {side_front, side_right, 5};
+            corner.emplace(sides_[side_front].GetNumColor(2, 2));
+            corner.emplace(sides_[side_right].GetNumColor(2, 0));
+            corner.emplace(sides_[5].GetNumColor(white_cor[side_front - 1][0], white_cor[side_front - 1][1]));
+            if (corner == correct_corner)
+            {
+                while (sides_[side_front].GetNumColor(2, 2) != sides_[side_front].GetNumColor(1, 1) ||
+                       sides_[side_right].GetNumColor(2, 0) != sides_[side_right].GetNumColor(1, 1))
+                {
+                    BangBangAlgorithm(solution, side_front);
+                    BangBangAlgorithm(solution, side_front);
+                }
+            }
+            else
+            {
+                BangBangAlgorithm(solution, side_front);
+                DownWhiteCorners(solution);
+            }
+        }
+    }
+}
+
+void CCube::DownMiddleEdges(std::string &solution)
+{
+    while (sides_[0].GetNumColor(2, 1) != 0 && sides_[1].GetNumColor(0, 1) != 0 ||
+           sides_[0].GetNumColor(1, 0) != 0 && sides_[2].GetNumColor(0, 1) != 0 ||
+           sides_[0].GetNumColor(0, 1) != 0 && sides_[3].GetNumColor(0, 1) != 0 ||
+           sides_[0].GetNumColor(1, 2) != 0 && sides_[4].GetNumColor(0, 1) != 0)
+    {
+        int side_front;
+        if (sides_[0].GetNumColor(2, 1) != 0 && sides_[1].GetNumColor(0, 1) != 0)
+        {
+            side_front = 1;
+        }
+        else if (sides_[0].GetNumColor(1, 0) != 0 && sides_[2].GetNumColor(0, 1) != 0)
+        {
+            side_front = 2;
+        }
+        else if (sides_[0].GetNumColor(0, 1) != 0 && sides_[3].GetNumColor(0, 1) != 0)
+        {
+            side_front = 3;
+        }
+        else if (sides_[0].GetNumColor(1, 2) != 0 && sides_[4].GetNumColor(0, 1) != 0)
+        {
+            side_front = 4;
+        }
+
+        while (sides_[side_front].GetNumColor(0, 1) != sides_[side_front].GetNumColor(1, 1))
+        {
+            side_front = side_front % 4 + 1;
+            U();
+            solution += "U ";
+        }
+
+        int edge_up[4][2] = {{2, 1}, {1, 0}, {0, 1}, {1, 2}};
+        int side_right = side_front == 1 ? 4 : side_front - 1;
+        int side_left = side_front % 4 + 1;
+        if (sides_[0].GetNumColor(edge_up[side_front - 1][0], edge_up[side_front][1]) ==
+            sides_[side_right].GetNumColor(1, 1))
+        {
+            U();
+            solution += "U ";
+            BangBangAlgorithm(solution, side_front);
+            BangBangLeftAlgorithm(solution, side_right);
+        }
+        else
+        {
+            U_();
+            solution += "U' ";
+            BangBangLeftAlgorithm(solution, side_front);
+            BangBangAlgorithm(solution, side_left);
+        }
+    }
+}
+
+void CCube::SolveMiddleLayer(std::string &solution)
+{
+    DownMiddleEdges(solution);
+
+    for (int side_front = 1; side_front < 5; ++side_front)
+    {
+        int side_right = side_front == 1 ? 4 : side_front - 1;
+        if (sides_[side_front].GetNumColor(1, 2) != sides_[side_front].GetNumColor(1, 1))
+        {
+            BangBangAlgorithm(solution, side_front);
+            BangBangLeftAlgorithm(solution, side_right);
+            DownMiddleEdges(solution);
+        }
+    }
+}
+
+void CCube::SolveYellowCross(std::string &solution)
+{
+    int count_yellow_edges = 0;
+    if (sides_[0].GetNumColor(0, 1) == 0)
+    {
+        ++count_yellow_edges;
+    }
+    if (sides_[0].GetNumColor(1, 0) == 0)
+    {
+        ++count_yellow_edges;
+    }
+    if (sides_[0].GetNumColor(1, 2) == 0)
+    {
+        ++count_yellow_edges;
+    }
+    if (sides_[0].GetNumColor(2, 1) == 0)
+    {
+        ++count_yellow_edges;
+    }
+    if (count_yellow_edges == 4)
+    {
+        return;
+    }
+    if (count_yellow_edges % 2 == 1)
+    {
+        std::cerr << "The cube is not correct! Disassemble the cube into parts and assemble it by color mechanically!\n";
+        return;
+    }
+
+    int side_front = 1, side_right = 4, side_back = 3;
+    while (sides_[side_front].GetNumColor(0, 1) != 0 ||
+           (sides_[side_right].GetNumColor(0, 1) != 0 && sides_[side_back].GetNumColor(0, 1) != 0))
+    {
+        ++side_front;
+        side_right = side_right % 4 + 1;
+        side_back = side_back % 4 + 1;
+    }
+
+    while (sides_[side_front].GetColor(0, 1) == 0)
+    {
+        F();
+        solution += "F ";
+        BangBangAlgorithm(solution, side_front);
+        F_();
+        solution += "F' ";
+    }
+}
+
+void CCube::SolveCorrectYellowCross(std::string &solution)
+{
+    while (sides_[1].GetNumColor(0, 1) != sides_[1].GetNumColor(1, 1) &&
+           sides_[2].GetNumColor(0, 1) != sides_[2].GetNumColor(1, 1) &&
+           sides_[3].GetNumColor(0, 1) != sides_[3].GetNumColor(1, 1) &&
+           sides_[4].GetNumColor(0, 1) != sides_[4].GetNumColor(1, 1))
+    {
+        U();
+        solution += "U ";
+    }
+
+    int side_back = 1;
+    while (sides_[side_back].GetNumColor(0, 1) != sides_[side_back].GetNumColor(1, 1))
+    {
+        ++side_back;
+    }
+
+    while (sides_[1].GetNumColor(0, 1) != sides_[1].GetNumColor(1, 1) ||
+           sides_[2].GetNumColor(0, 1) != sides_[2].GetNumColor(1, 1) ||
+           sides_[3].GetNumColor(0, 1) != sides_[3].GetNumColor(1, 1) ||
+           sides_[4].GetNumColor(0, 1) != sides_[4].GetNumColor(1, 1))
+    {
+        switch (side_back)
+        {
+        case 1:
+            L();
+            U_();
+            L();
+            U();
+            L();
+            U();
+            L();
+            U_();
+            L_();
+            U_();
+            L();
+            L();
+            solution += "L U' L U L U L U' L' U' L L ";
+            break;
+        case 2:
+            B();
+            U_();
+            B();
+            U();
+            B();
+            U();
+            B();
+            U_();
+            B_();
+            U_();
+            B();
+            B();
+            solution += "B U' B U B U B U' B' U' B B ";
+            break;
+        case 3:
+            R();
+            U_();
+            R();
+            U();
+            R();
+            U();
+            R();
+            U_();
+            R_();
+            U_();
+            R();
+            R();
+            solution += "R U' R U R U R U' R' U' R R ";
+            break;
+        case 4:
+            F();
+            U_();
+            F();
+            U();
+            F();
+            U();
+            F();
+            U_();
+            F_();
+            U_();
+            F();
+            F();
+            solution += "F U' F U F U F U' F' U' F F ";
+            break;
+        }
+    }
+}
+
+void CCube::SolveYellowCorners(std::string &solution)
+{
+    int corners_up[4][2] = {{2, 0}, {0, 0}, {0, 2}, {2, 2}};
+    int count_corrrect_corners = 0;
+    for (int i = 1; i < 5; ++i)
+    {
+        std::set<int> corner, correct_cor = {0, i, i % 4 + 1};
+        corner.emplace(sides_[i].GetNumColor(0, 0));
+        corner.emplace(sides_[i % 4 + 1].GetNumColor(0, 2));
+        corner.emplace(sides_[0].GetNumColor(corners_up[i - 1][0], corners_up[i - 1][1]));
+        if (corner == correct_cor)
+        {
+            ++count_corrrect_corners;
+        }
+    }
+
+    if (count_corrrect_corners == 2 || count_corrrect_corners == 3)
+    {
+        std::cerr << "The cube is not correct! Disassemble the cube into parts and assemble it by color mechanically!\n";
+        return;
+    }
+
+    while (count_corrrect_corners != 4)
+    {
+        int side_front = 1;
+        while (side_front < 5)
+        {
+            std::set<int> corner, correct_cor = {0, side_front, side_front % 4 + 1};
+            corner.emplace(sides_[side_front].GetNumColor(0, 0));
+            corner.emplace(sides_[side_front % 4 + 1].GetNumColor(0, 2));
+            corner.emplace(sides_[0].GetNumColor(corners_up[side_front - 1][0], corners_up[side_front - 1][1]));
+            if (corner == correct_cor)
+            {
+                break;
+            }
+            ++side_front;
+        }
+        if (side_front == 5)
+        {
+            side_front = 1;
+        }
+
+        switch (side_front)
+        {
+        case 1:
+            R();
+            U_();
+            L_();
+            U();
+            R_();
+            U_();
+            L();
+            U();
+            solution += "R U' L' U R' U' L U ";
+            break;
+        case 2:
+            F();
+            U_();
+            B_();
+            U();
+            F_();
+            U_();
+            B();
+            U();
+            solution += "F U' B' U F' U' B U ";
+            break;
+        case 3:
+            L();
+            U_();
+            R_();
+            U();
+            L_();
+            U_();
+            R();
+            U();
+            solution += "L U' R' U L' U' R U ";
+            break;
+        case 4:
+            B();
+            U_();
+            F_();
+            U();
+            B_();
+            U_();
+            F();
+            U();
+            solution += "B U' F' U B' U' F U ";
+            break;
+        }
+
+        count_corrrect_corners = 0;
+        for (int i = 1; i < 5; ++i)
+        {
+            std::set<int> corner, correct_cor = {0, i, i % 4 + 1};
+            corner.emplace(sides_[i].GetNumColor(0, 0));
+            corner.emplace(sides_[i % 4 + 1].GetNumColor(0, 2));
+            corner.emplace(sides_[0].GetNumColor(corners_up[i - 1][0], corners_up[i - 1][1]));
+            if (corner == correct_cor)
+            {
+                ++count_corrrect_corners;
+            }
+        }
+    }
+}
+
+void CCube::SolveCorrectYellowCorners(std::string &solution)
+{
+    while (sides_[0].GetNumColor(0, 0) != 0 || sides_[0].GetNumColor(0, 2) != 0 || 
+           sides_[0].GetNumColor(2, 0) != 0 || sides_[0].GetNumColor(2, 2) != 0)
+    {
+        while (sides_[0].GetNumColor(2, 2) == 0)
+        {
+            U();
+            solution += "U ";
+        }
+        while (sides_[0].GetNumColor(2, 2) != 0)
+        {
+            D_();
+            R_();
+            solution += "D R' ";
+        }
+    }
+    while(sides_[1].GetNumColor(0, 1) != sides_[1].GetNumColor(1, 1))
+    {
+        U();
+        solution += "U ";
+    }
+}
+
+void CCube::SolveCube(std::string &solution)
+{
+    SolveWhiteFlower(solution);
+    std::cout << 1 << '\n';
+    SolveWhiteCross(solution);
+    std::cout << 2 << '\n';
+    SolveWhiteCorners(solution);
+    std::cout << 3 << '\n';
+    SolveMiddleLayer(solution);
+    std::cout << 4 << '\n';
+    SolveYellowCross(solution);
+    std::cout << 5 << '\n';
+    SolveCorrectYellowCross(solution);
+    std::cout << 6 << '\n';
+    SolveYellowCorners(solution);
+    std::cout << 7 << '\n';
+    SolveCorrectYellowCorners(solution);
 }
