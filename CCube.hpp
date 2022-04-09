@@ -30,6 +30,7 @@ public:
 
     void BangBangAlgorithm(std::string &solution, int front);
     void BangBangLeftAlgorithm(std::string &solution, int front);
+    void SwapTwoEdgesAlgorithm(std::string &solution, int front);
     void SolveWhiteFlower(std::string &solution);
     void SolveWhiteCross(std::string &solution);
     void DownWhiteCorners(std::string &solution);

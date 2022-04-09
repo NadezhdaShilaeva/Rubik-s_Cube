@@ -46,6 +46,8 @@
         "xutility": "cpp",
         "fstream": "cpp",
         "set": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "random": "cpp",
+        "string": "cpp"
     }
 }
