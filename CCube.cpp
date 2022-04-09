@@ -1343,6 +1343,10 @@ void CCube::SolveCorrectYellowCorners(std::string &solution)
 
 void CCube::SolveCube(std::string &solution)
 {
+    if (IsSolvedCube())
+    {
+        return;
+    }
     SolveWhiteFlower(solution);
     SolveWhiteCross(solution);
     SolveWhiteCorners(solution);

@@ -165,21 +165,21 @@ void GameCube()
             std::cout << "The command is not recognised!\n";
             continue;
         }
-    }
 
-    if (cube.IsSolvedCube())
-    {
-        std::cout << "\nCongratulations!\nYou solve the cube!\n"
-                  << "Would you like to play the game again?\n"
-                  << "Enter \"yes\" if you want and \"no\" if you don't want:\n";
-        std::cin >> command;
-        if (command == "yes")
+        if (cube.IsSolvedCube())
         {
-            GameCube();
-        }
-        else
-        {
-            return;
+            std::cout << "\nCongratulations!\nYou solve the cube!\n"
+                      << "Would you like to play the game again?\n"
+                      << "Enter \"yes\" if you want and \"no\" if you don't want:\n";
+            std::cin >> command;
+            if (command == "yes")
+            {
+                GameCube();
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }
