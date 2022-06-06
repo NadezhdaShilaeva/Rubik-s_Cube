@@ -31,12 +31,12 @@
 - ___F___ / ___B___ / ___R___ / ___L___ / ___U___ / ___D___ - повернуть соответствующую грань по часовой стрелке;  
 - ___F'___ / ___B'___ / ___R'___ / ___L'___ / ___U'___ / ___D'___ - повернуть соответствующую грань против часовой стрелке;  
 
-####Формат входных данных:  
+#### Формат входных данных:  
 Вводится одна из предлагаемых программой команд. В случае некорректного ввода, программа сообщает об ошибке и просит повторно ввести команду.
 
 ---
 
-####Примеры использования программы:  
+#### Примеры использования программы:  
 ___Выходные данные:___  
 Welcome to our Rubik's cube game!  
 Enter "file" to read the cube from file.  
@@ -59,13 +59,17 @@ ___Входные аргументы:___
 show
 
 ___Выходные данные:___  
+![generated_cube](https://github.com/NadezhdaShilaeva/Rubik-s_Cube/blob/main/images/generated_cube.png?raw=true)  
+
 Enter the command for the cube:  
 
 ___Входные аргументы:___  
 solve  
 
 ___Выходные данные:___  
-L F U F F B' U U F F U U U L L B B U U U R R F U F' U' F U F' U' F U F' U' U U U R U R' U' U U L U L' U' B U B' U' B U B' U' U U F U F' U' L' U' L U U' B' U' B U L U L' U' U B U B' U' R' U' R U R B U B' U' R' R B U B' U' R' R U R' U R U U R' U F U' B' U F' U' B U D' R' D R D' R' D R U D' R' D R D' R' D R U D' R' D R D' R' D R U U
+L F U F F B' U U F F U U U L L B B U U U R R F U F' U' F U F' U' F U F' U' U U U R U R' U' U U L U L' U' B U B' U' B U B' U' U U F U F' U' L' U' L U U' B' U' B U L U L' U' U B U B' U' R' U' R U R B U B' U' R' R B U B' U' R' R U R' U R U U R' U F U' B' U F' U' B U D' R' D R D' R' D R U D' R' D R D' R' D R U D' R' D R D' R' D R U U  
+
+![solved_cube](https://github.com/NadezhdaShilaeva/Rubik-s_Cube/blob/main/images/solved_cube.png?raw=true)  
 
 Thank you for playing the game!  
 Would you like to play the game again?  
@@ -102,6 +106,7 @@ ___Входные аргументы:___
 show  
 
 ___Выходные данные:___  
+![rotate_front_cube](https://github.com/NadezhdaShilaeva/Rubik-s_Cube/blob/main/images/rotate_front_cube.png?raw=true)  
 
 Enter the command for the cube:  
 
@@ -109,6 +114,8 @@ ___Входные аргументы:___
 F'  
 
 ___Выходные данные:___  
+![solved_cube](https://github.com/NadezhdaShilaeva/Rubik-s_Cube/blob/main/images/solved_cube.png?raw=true)  
+
 Congratulations!  
 You solve the cube!  
 Would you like to play the game again?  
