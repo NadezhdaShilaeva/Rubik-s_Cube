@@ -1,6 +1,32 @@
 #include "CCube.hpp"
 #include <set>
 #include <random>
+#include <Windows.h>
+
+void SetCubeColor(int num)
+{
+    switch (num)
+    {
+    case 0:
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN);
+        break;
+    case 1:
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_BLUE);
+        break;
+    case 2:
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+        break;
+    case 3:
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
+        break;
+    case 4:
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
+        break;
+    case 5:
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+        break;
+    }
+}
 
 CCube::CCube()
 {
@@ -35,10 +61,46 @@ std::ifstream &operator>>(std::ifstream &stream, CCube &cube)
 
 std::ostream &operator<<(std::ostream &stream, const CCube &cube)
 {
-    for (int i = 0; i < 6; ++i)
+    for(int i = 0; i < 3; ++i)
     {
-        stream << cube.GetSide(i) << std::endl;
+        stream << "              ";
+        for (int j = 0; j < 3; ++j)
+        {
+            SetCubeColor(cube.GetSide(0).GetNumColor(i, j));
+            stream << "■" << " ";
+        }
+        stream << "\n";
     }
+
+    int sides_order[4] = {3, 2, 1, 4};
+
+    for (int i = 0; i < 3; ++i)
+    {
+        for(int k = 0; k < 4; ++k)
+        {
+            for(int j = 0; j < 3; ++j)
+            {
+                SetCubeColor(cube.GetSide(sides_order[k]).GetNumColor(i, j));
+                stream << "■" << " ";
+            }
+            stream << " ";
+        }
+        stream << "\n";
+    }
+
+    for(int i = 0; i < 3; ++i)
+    {
+        stream << "              ";
+        for (int j = 0; j < 3; ++j)
+        {
+            SetCubeColor(cube.GetSide(5).GetNumColor(i, j));
+            stream << "■" << " ";
+        }
+        stream << "\n";
+    }
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
     return stream;
 }
 

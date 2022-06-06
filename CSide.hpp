@@ -10,7 +10,6 @@ public:
     ~CSide();
 
     friend std::ifstream &operator>>(std::ifstream &stream, CSide &side);
-    friend std::ostream &operator<<(std::ostream &stream, const CSide &side);
     friend std::ofstream &operator<<(std::ofstream &stream, const CSide &side);
 
     int GetNumColor(int y, int x) const;

@@ -68,19 +68,6 @@ std::ifstream &operator>>(std::ifstream &stream, CSide &side)
     return stream;
 }
 
-std::ostream &operator<<(std::ostream &stream, const CSide &side)
-{
-    for (int i = 0; i < 3; ++i)
-    {
-        for (int j = 0; j < 3; ++j)
-        {
-            stream << side.GetColor(i, j) << " ";
-        }
-        stream << std::endl;
-    }
-    return stream;
-}
-
 std::ofstream &operator<<(std::ofstream &stream, const CSide &side)
 {
     for (int i = 0; i < 3; ++i)

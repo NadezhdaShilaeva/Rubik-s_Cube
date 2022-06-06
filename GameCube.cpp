@@ -29,6 +29,7 @@ void GameCube()
         {
             std::cout << "The file cannot be open!\n";
             GameCube();
+            return;
         }
     }
     else if (command == "generate")
@@ -42,6 +43,7 @@ void GameCube()
     {
         std::cout << "The command is not recognised!\n";
         GameCube();
+        return;
     }
 
     std::cout << "\nGame started!\n"
@@ -66,9 +68,11 @@ void GameCube()
             if (command == "yes")
             {
                 GameCube();
+                return;
             }
             else
             {
+                std::cout << "\nGoodbye! I hope to see you again!\n";
                 return;
             }
         }
@@ -98,7 +102,7 @@ void GameCube()
         {
             std::string solution;
             cube.SolveCube(solution);
-            std::cout << solution << "\n";
+            std::cout << solution << "\n\n" << cube;
             std::cout << "\nThank you for playing the game!\n"
                       << "Would you like to play the game again?\n"
                       << "Enter \"yes\" if you want and \"no\" if you don't want:\n";
@@ -106,9 +110,11 @@ void GameCube()
             if (command == "yes")
             {
                 GameCube();
+                return;
             }
             else
             {
+                std::cout << "\nGoodbye! I hope to see you again!\n";
                 return;
             }
         }
@@ -168,6 +174,7 @@ void GameCube()
 
         if (cube.IsSolvedCube())
         {
+            std::cout << "\n" << cube;
             std::cout << "\nCongratulations!\nYou solve the cube!\n"
                       << "Would you like to play the game again?\n"
                       << "Enter \"yes\" if you want and \"no\" if you don't want:\n";
@@ -175,9 +182,11 @@ void GameCube()
             if (command == "yes")
             {
                 GameCube();
+                return;
             }
             else
             {
+                std::cout << "\nGoodbye! I hope to see you again!\n";
                 return;
             }
         }
